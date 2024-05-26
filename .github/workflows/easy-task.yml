@@ -32,7 +32,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: "14.x" # Ensure to specify the correct Node.js version for your project
+          node-version: "20.13.1" # Ensure to specify the correct Node.js version for your project
       - name: Install Angular CLI
         run: npm install -g @angular/cli
       - name: Install dependencies and build
