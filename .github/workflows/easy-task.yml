@@ -47,19 +47,14 @@ jobs:
           name: built-app # Specify the name of the artifact
           path: maximilian_course/easy_task/dist/easy_task # Specify the path to the built app
 
-  # Job for deploying the built app to GitHub Pages
+  # Deployment job
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build # Ensure this job runs after the build job
+    needs: build
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: built-app # Specify the name of the artifact to download
-          path: maximilian_course/easy_task/dist/easy_task # Specify the path to download the artifact
-
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./maximilian_course/easy_task/dist/easy_task # Specify the path to the built app for deployment
+        id: deployment
+        uses: actions/deploy-pages@v4
