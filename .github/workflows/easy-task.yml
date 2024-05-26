@@ -42,6 +42,8 @@ jobs:
           cd maximilian_course/easy_task
           npm install
           npm run build --prod
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
 
   # Job for deploying the built app to GitHub Pages
   deploy:
