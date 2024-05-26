@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies and build
         run: |
-          cd "maximilian course"/"easy task"
+          cd "maximilian course"/"easytask"
           npm install
           npm run build --prod
 
