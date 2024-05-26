@@ -13,6 +13,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: List files
+        run: ls -R
+
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
@@ -20,7 +23,7 @@ jobs:
 
       - name: Install dependencies and build
         run: |
-          cd "maximilian course"/"easytask"
+          cd "maximilian course/easytask"
           npm install
           npm run build --prod
 
@@ -28,4 +31,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./maximilian-course/easy-task/dist/easy-task
+          publish_dir: ./maximilian\ course/easytask/dist/easytask
