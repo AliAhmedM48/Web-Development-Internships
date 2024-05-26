@@ -1,4 +1,4 @@
-# Sample workflow for building and deploying a Jekyll site to GitHub Pages
+# Sample workflow for building and deploying an Angular app to GitHub Pages
 name: Build and Deploy Angular App
 
 on:
@@ -29,12 +29,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: "20.13.1" # تأكد من تحديد إصدار Node.js المناسب لمشروعك
+          node-version: "14.x" # Ensure to specify the correct Node.js version for your project
       - name: Install Angular CLI
         run: npm install -g @angular/cli
       - name: Install dependencies and build
@@ -43,7 +41,10 @@ jobs:
           npm install
           npm run build --prod
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-artifact@v2
+        with:
+          name: built-app
+          path: maximilian_course/easy_task/dist/easy_task # Ensure to set the correct path to the build directory
 
   # Job for deploying the built app to GitHub Pages
   deploy:
@@ -51,11 +52,15 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build # تأكد من تشغيل هذه الوظيفة بعد الانتهاء من بناء المشروع
+    needs: build # Ensure to run this job after the build job is completed
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: built-app
+          path: maximilian_course/easy_task/dist/easy_task # Ensure to set the correct path to the build directory
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-        # with:
-        #   github_token: ${{ secrets.GITHUB_TOKEN }}
-        #   publish_dir: ./maximilian_course/easy_task/docs # تأكد من تعيين المسار الصحيح لمجلد البناء
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/easy_task
