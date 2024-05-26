@@ -23,7 +23,7 @@ jobs:
 
       - name: Install dependencies and build
         run: |
-          cd "maximilian course/easytask"
+          cd "Maximilian Course/EasyTask"
           npm install
           npm run build --prod
 
@@ -31,4 +31,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./maximilian\ course/easytask/dist/easytask
+          publish_dir: ./Maximilian\ Course/EasyTask/dist/easytask
